@@ -149,7 +149,7 @@ public class JWPlatformClient {
     // we branch off here to keep the params we'll use directly in the request
     final String paramsNoSignature = encodedParams.toString();
     encodedParams.append(this.apiSecret);
-    final String hexDigest = DigestUtils.sha1Hex(encodedParams.toString());
+    final String hexDigest = new String(Hex.encodeHex(DigestUtils.sha(encodedParams.toString())));
 
     return host + path + "?" + paramsNoSignature + "&api_signature=" + hexDigest;
   }
